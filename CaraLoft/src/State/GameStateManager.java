@@ -2,7 +2,7 @@ package State;
 
 public class GameStateManager { // this allows us to actually do stuff
 
-    private static State currentState = null;
+    private static State currentState;
 
     private static void setState(State state){
         currentState = state;

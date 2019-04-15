@@ -169,6 +169,8 @@ public class Game implements Runnable{ // going to be the main game class, start
         }
     }
 
+    
+    //Getters and Setters
     public int getWidth() {
         return width;
     }

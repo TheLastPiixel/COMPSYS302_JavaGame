@@ -1,6 +1,5 @@
 package State;
 
-import main.Game;
 import main.Handler;
 
 import java.awt.*;

@@ -1,7 +1,6 @@
 package gfx;
 
 import java.awt.image.BufferedImage;
-import java.io.BufferedReader;
 
 public class Assets {
 
@@ -20,13 +19,14 @@ public class Assets {
         player_down = new BufferedImage[8];
         player_up = new BufferedImage[8];
 
-        for(int x = 0; x < player_down.length; x++){
+        //Load files
+        for(int x = 0; x < player_right.length; x++){
           player_right[x] = sheet.crop(width * x, 0, width, height);
         }
         for(int x = 0; x < player_left.length; x++){
             player_left[x] = sheet.crop(width * x, height * 1, width, height);
         }
-        for(int x = 0; x < player_right.length; x++){
+        for(int x = 0; x < player_down.length; x++){
             player_down[x] = sheet.crop(width * x, height * 2, width, height);
         }
         for(int x = 0; x < player_up.length; x++){

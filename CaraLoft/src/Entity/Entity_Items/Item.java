@@ -1,7 +1,7 @@
 package Entity.Entity_Items;
 
 import Entity.Entity;
-import main.Game;
+
 import main.Handler;
 
 import java.awt.*;
