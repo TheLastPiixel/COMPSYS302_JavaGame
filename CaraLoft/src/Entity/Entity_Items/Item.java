@@ -8,17 +8,17 @@ import java.awt.*;
 
 public class Item extends Entity {
 
-    public Item(Handler handler, float posX, float posY, int width, int height) {
-        super(handler, posX, posY, width, height);
-    }
+	public Item(Handler handler, float posX, float posY, int width, int height) {
+		super(handler, posX, posY, width, height);
+	}
 
-    @Override
-    public void tick() {
+	@Override
+	public void tick() {
 
-    }
+	}
 
-    @Override
-    public void render(Graphics g) {
+	@Override
+	public void render(Graphics g) {
 
-    }
+	}
 }
