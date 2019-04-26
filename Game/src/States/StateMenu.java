@@ -68,7 +68,23 @@ public class StateMenu extends StatesAbstract {
 
 	@Override
 	public void Tick() {
+		if (Handler.GetMouseInput().Play == true) {
+			Handler.GetMain().SetState(Handler.GetMain().StateGame);
+			Handler.GetMouseInput().Refresh();
+		}
 		
+		else if (Handler.GetMouseInput().Settings == true) {
+			System.out.println("Settings");
+			Handler.GetMouseInput().Refresh();
+		}
+	
+		else if (Handler.GetMouseInput().Exit == true) {
+			//Closes the game
+			Handler.GetMouseInput().Refresh();
+			Handler.GetMain().Stop();
+			System.exit(1);
+			
+		}
 	}
 
 }

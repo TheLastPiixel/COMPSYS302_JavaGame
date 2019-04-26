@@ -1,5 +1,6 @@
 package Input;
 
+import Main.Handler;
 import Main.Main;
 import States.StateGame;
 import States.StatesAbstract;
@@ -11,28 +12,27 @@ import java.awt.event.MouseListener;
 public class MouseInput implements MouseListener{
 	
 	private StatesAbstract StateGame;
-	private boolean Play;
-	private boolean Settings;
-	private boolean Exit;
+	public boolean Play = false;
+	public boolean Settings = false;
+	public boolean Exit = false;
+	
+	public MouseInput() {
+		
+	}
+	
+	public void Refresh() {
+		Play = false;
+		Settings = false;
+		Exit = false;
+	}
 	
 	public void Tick() {
-		if (Play == true) {
-			Main.SetState(StateGame);
-		}
-		
-		if (Settings == true) {
-			System.out.println("Settings");
-		}
-		
-		if (Play == true) {
-			System.exit(1);
-		}
+
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent Event) {
 		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -50,11 +50,6 @@ public class MouseInput implements MouseListener{
 	public void mousePressed(MouseEvent Event) {
 		int PosX = Event.getX();
 		int PosY = Event.getY();
-		System.out.println("Clicked");
-		
-//		public Rectangle PlayButton = new Rectangle(520, 250, 400, 150);
-//		public Rectangle SettingsButton = new Rectangle(520, 430, 400, 150);
-//		public Rectangle ExitButton = new Rectangle(520, 610, 400, 150);
 		
 		if (PosX >= 520 & PosX <= 920) {
 			if (PosY >= 250 & PosY <= 400) {
@@ -62,14 +57,14 @@ public class MouseInput implements MouseListener{
 				Play = true;
 			}
 		}
-		
+
 		if (PosX >= 520 & PosX <= 920) {
 			if (PosY >= 430 & PosY <= 580) {
 				Settings = true;
 				//Press settings
 			}
 		}
-		Settings = false;
+		
 		
 		if (PosX >= 520 & PosX <= 920) {
 			if (PosY >= 610 & PosY <= 760) {
@@ -78,7 +73,6 @@ public class MouseInput implements MouseListener{
 				
 			}
 		}
-		Exit = false;
 	}
 
 	@Override
@@ -86,5 +80,29 @@ public class MouseInput implements MouseListener{
 		
 		
 	}
-
+	
+	//GETTERS & SETTERS
+	//Play 
+	public boolean GetPlayStatus() {
+		return Play;
+	}
+	public void SetPlayStatus(boolean Status) {
+		Play = Status;
+	}
+	
+	//Settings
+	public boolean GetSettingsStatus() {
+		return Settings;
+	}
+	public void SetSettingsStatus(boolean Status) {
+		Settings = Status;
+	}
+	
+	//Exit
+	public boolean GetExitStatus() {
+		return Exit;
+	}
+	public void SetExiteStatus(boolean Status) {
+		Exit = Status;
+	}
 }

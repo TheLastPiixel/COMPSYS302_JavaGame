@@ -2,6 +2,7 @@ package Main;
 
 import Graphics.Camera;
 import Input.KeyboardInput;
+import Input.MouseInput;
 import Rooms.Rooms;
 
 public class Handler {
@@ -24,7 +25,7 @@ public class Handler {
 	}
 	
 	//Main
-	public Main GetGame() {
+	public Main GetMain() {
 		return Game;
 	}
 	public void SetGame(Main Game) {
@@ -39,6 +40,11 @@ public class Handler {
 	//Height
 	public int GetHeight() {
 		return Game.GetHeight();
+	}
+	
+	//MouseInput
+	public MouseInput GetMouseInput() {
+		return Game.getMouseInput();
 	}
 
 	//KeyboardInput

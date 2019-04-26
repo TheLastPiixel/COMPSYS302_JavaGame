@@ -23,10 +23,10 @@ public class Main implements Runnable {
 	private int x;
 	private static States.StatesAbstract CurrentState = null;
 	//Handler
-	private Handler handler;
+	private Handler Handler;
 	//States
-	private StatesAbstract StateGame;
-	private StatesAbstract StateMenu;
+	public StatesAbstract StateGame;
+	public StatesAbstract StateMenu;
 	//Inputs
 	private MouseInput MouseInput;
 	private KeyboardInput KeyboardInput;
@@ -49,16 +49,17 @@ public class Main implements Runnable {
 		Display = new Display(Title, Width, Height);
 		Display.GetFrame().addKeyListener(KeyboardInput);
 		Display.GetFrame().addMouseListener(MouseInput);
+		Display.GetCanvas().addMouseListener(MouseInput);
 		//Loads the sprite sheet
 		Sprites.LoadSprites();
-		handler = new Handler(this);
+		Handler = new Handler(this);
 
-		GameCamera = new Camera(handler,this, 0, 0);
+		GameCamera = new Camera(Handler,this, 0, 0);
 
 		//Initializes all the states
-		StateGame = new StateGame(handler);
-		StateMenu = new StateMenu(handler);
-		SetState(StateGame);
+		StateGame = new StateGame(Handler);
+		StateMenu = new StateMenu(Handler);
+		SetState(StateMenu);
 	}
 	
 	private void Tick() {
