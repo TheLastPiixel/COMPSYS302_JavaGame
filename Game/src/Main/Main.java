@@ -6,15 +6,10 @@ import States.StatesAbstract;
 import States.StateMenu;
 import States.StateGame;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-
-
 import Input.KeyboardInput;
 import Graphics.Camera;
-import Graphics.SpriteSheet;
 import Graphics.Sprites;
-import Graphics.TextureLoader;
-import Input.MouseInput;
+import Main.Handler;
 
 public class Main implements Runnable {
 	
@@ -27,6 +22,8 @@ public class Main implements Runnable {
 	private boolean Operating = false;
 	private int x;
 	private static States.StatesAbstract CurrentState = null;
+	//Handler
+	private Handler handler;
 	//States
 	private StatesAbstract StateGame;
 	private StatesAbstract StateMenu;
@@ -35,7 +32,7 @@ public class Main implements Runnable {
 	private KeyboardInput KeyboardInput;
 	//Camera
 	private Camera GameCamera;
-	
+
 	public String Title;
 
 	//Constructor
@@ -45,7 +42,6 @@ public class Main implements Runnable {
 		this.Height = Height;
 		MouseInput = new MouseInput();
 		KeyboardInput = new KeyboardInput();
-		
 	}
 	
 	private void Initialize() {
@@ -55,17 +51,14 @@ public class Main implements Runnable {
 		Display.GetFrame().addMouseListener(MouseInput);
 		//Loads the sprite sheet
 		Sprites.LoadSprites();
-		
-		GameCamera = new Camera(this, 0, 0);
-		
+		handler = new Handler(this);
+
+		GameCamera = new Camera(handler,this, 0, 0);
+
 		//Initializes all the states
-		StateGame = new StateGame(this);
-		StateMenu = new StateMenu(this);
+		StateGame = new StateGame(handler);
+		StateMenu = new StateMenu(handler);
 		SetState(StateGame);
-	}
-	
-	public MouseInput getMouseInput() {
-		return MouseInput;
 	}
 	
 	private void Tick() {
@@ -74,19 +67,9 @@ public class Main implements Runnable {
 		}
 		KeyboardInput.Tick();
 		MouseInput.Tick();
+
 	}
-	
-	//State Setter methods
-	public static void SetState(StatesAbstract State) {
-		CurrentState = State;
-	}
-	
-	//State Getter method
-	public static StatesAbstract GetState() {
-		return CurrentState;
-	}
-	
-	//Render method
+
 	private void Render() { //Draws to screen
 		BuffStrat = Display.Canvas.getBufferStrategy();
 		if (BuffStrat == null) {
@@ -118,43 +101,36 @@ public class Main implements Runnable {
 		Initialize();
 		
 		long LastTime = System.nanoTime();
+		//Fps cap
 		double TargetFps = 60;
 		double ns = 1000000000 / TargetFps;
 		double Delta = 0;
 		long Clk = System.currentTimeMillis();
-//		long Timer = 0;
-//		int Fps = 0;
+		int Fps = 0;
 		
 		while(Operating == true) {
-			long now = System.nanoTime();
-			Delta += (now - LastTime) / ns;
-			LastTime = now;
+			long Now = System.nanoTime();
+			Delta += (Now - LastTime) / ns;
+			LastTime = Now;
 			
 			while(Delta >= 1) {
 				Tick();
-				Delta = Delta - 1;
+				Delta--;
 			}
 			
-			if(Operating == true) {
+			if(Operating == true) 
 				Render();
-			}
-			
-//			if(System.currentTimeMillis() - Clk > 1000) {
+			Fps++;
+
+			if(System.currentTimeMillis() - Clk > 1000) {
+				Clk += 1000;
 //				System.out.println("FPS: " + Fps);
-//			}
+				Fps = 0;
+			}
 			
 		}
 		Stop(); 
 		
-	}
-	
-	//KeyboardInput Getter Method
-	public KeyboardInput GetKeyboardInput() {
-		return KeyboardInput;
-	}
-	
-	public Camera GetCamera() {
-		return GameCamera;
 	}
 	
 	public synchronized void Start() { //Prevents thread interference
@@ -186,10 +162,10 @@ public class Main implements Runnable {
 		else {
 			return;
 		}
-		
 	}
 	
-	//Getters for Width & Height
+	//GETTERS & SETTERS
+	//Width & Height
 	public int GetWidth() {
 		return Width;
 	}
@@ -197,5 +173,27 @@ public class Main implements Runnable {
 		return Height;
 	}
 	
+	//Camera
+	public Camera GetCamera() {
+		return GameCamera;
+	}
+	
+	//StatesAbstract
+	public static StatesAbstract GetState() {
+		return CurrentState;
+	}
+	public static void SetState(StatesAbstract State) {
+		CurrentState = State;
+	}
+	
+	//MouseInput
+	public MouseInput getMouseInput() {
+		return MouseInput;
+	}
+	
+	//KeyboardInput
+	public KeyboardInput GetKeyboardInput() {
+		return KeyboardInput;
+	}
 }
 
