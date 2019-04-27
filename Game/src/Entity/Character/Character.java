@@ -18,8 +18,8 @@ public abstract class Character extends Entity{
 	public static int DefaultHealth = 100;
 	public static int DefaultSpeed = 3;
 	protected int attackRange = 40;
-	
-	
+
+
 	public Character(Handler Handler, int Width, int Height, Identifier id, float PosX, float PosY) {
 		super(Handler, Width, Height, id, PosX, PosY);
 		Health = DefaultHealth;
@@ -29,10 +29,8 @@ public abstract class Character extends Entity{
 		YSpeed = 0;
 		Speed = DefaultSpeed;
 		SpeedFactor = 1;
-		
-
 	}
-	
+
 	public void MovementSpeed() {
 		if(!checkEntityCollisions(XSpeed, 0f)){
 			moveX();
@@ -41,6 +39,7 @@ public abstract class Character extends Entity{
 			moveY();
 		}
 	}
+
 	public void moveX() {
 		if (XSpeed > 0) {        //moving right
 			int tx = (int) (PosX + XSpeed + colBoundary.x + colBoundary.width) / Tiles.TileWidth;
@@ -113,7 +112,7 @@ public abstract class Character extends Entity{
 	public void SetMode(int Mode) {
 		Mode =Mode;
 	}
-	
+
 	//XSpeed Getter & Setter
 	public float GetXSpeed() {
 		return XSpeed;
@@ -131,7 +130,7 @@ public abstract class Character extends Entity{
 	}
 
 	protected boolean collisionWithTile(int x, int y){
-		return Handler.getRoom().GetTileTexture(x,y).IsSolid(); // get true or false whether it is sold
+		return Handler.GetRoom().GetTileTexture(x,y).IsSolid(); // get true or false whether it is sold
 	}
 
 }

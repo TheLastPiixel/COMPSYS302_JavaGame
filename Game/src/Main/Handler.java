@@ -11,29 +11,13 @@ import java.util.ArrayList;
 
 public class Handler {
 	public ArrayList<Entity> objects = new ArrayList<Entity>();
-
-	public void tick() {
-		// Goes through all the objects and ticks them
-		for(int i = 0; i < objects.size(); i++){
-			Entity object = objects.get(i);
-			object.Tick();
-		}
-	}
-
-	public void render(Graphics g) {
-		// Goes through all the objects and renders them
-		for(int i = 0; i < objects.size(); i++){
-			Entity object = objects.get(i);
-			object.Render(g);
-		}
-	}
 	
 	private Rooms Room;
 	private Main Game;
 	public ArrayList<Entity> getEntities() {
 		return objects;
 	}
-
+	
 	public Handler(Main Game) {
 		this.Game = Game;
 	}
@@ -80,4 +64,7 @@ public class Handler {
 		return Game.GetCamera();
 	}
 
+	public void addObjects(Entity entity){
+		objects.add(entity);
+	}
 }

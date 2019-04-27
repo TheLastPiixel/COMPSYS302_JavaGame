@@ -5,10 +5,11 @@ import java.util.ArrayList;
 
 import Entity.Character.Identifier;
 import Main.Handler;
+import States.StateGame;
 
 
 public abstract class Entity {
-	
+
 	protected float PosX;
 	protected float PosY;
 	protected Identifier id;
@@ -17,7 +18,8 @@ public abstract class Entity {
 	protected int Width;
 	protected int Height;
 	protected Handler Handler;
-	
+	private ArrayList<Entity> entities; // like an array but with no specific size
+
 	public Entity(Handler Handler, int Width, int Height, Identifier id, float PosX, float PosY) {
 		this.id = id;
 		this.Handler = Handler;
@@ -26,10 +28,11 @@ public abstract class Entity {
 		this.Width = Width;
 		this.Height = Height;
 		colBoundary = new Rectangle(0,0, Width, Height);
+		entities = new ArrayList<Entity>();
 	}
-	
+
 	public abstract void Tick();
-	
+
 	public abstract void Render(Graphics GraphicsObj);
 
 	// Returns the boundary box
@@ -50,6 +53,14 @@ public abstract class Entity {
 		return false;
 	}
 
+	public ArrayList<Entity> getEntities() {
+		return entities;
+	}
+
+	public void addEntity(Entity entity){
+		entities.add(entity);
+	}
+
 
 	public int GetHeight() {
 		return Height;
@@ -66,7 +77,7 @@ public abstract class Entity {
 	public void SetWidth(int width) {
 		Width = width;
 	}
-	
+
 	public float GetPosY() {
 		return PosY;
 	}
@@ -74,7 +85,7 @@ public abstract class Entity {
 	public void SetPosY(float posY) {
 		PosY = posY;
 	}
-	
+
 	public float GetPosX() {
 		return PosX;
 	}

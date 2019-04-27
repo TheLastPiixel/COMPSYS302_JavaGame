@@ -23,9 +23,9 @@ public class Enemy extends Character {
         super(Handler, DefaultWidth, DefaultHeight, id, PosX, PosY);
 
         this.player = player;
-        colBoundary.x = 12;
+        colBoundary.x = 22;
         colBoundary.y = 32;
-        colBoundary.width = 38;
+        colBoundary.width = 20;
         colBoundary.height = 24;
 
         //Animations init
@@ -37,18 +37,6 @@ public class Enemy extends Character {
 
     }
 
-    private void collision(){
-        for(int i = 0; i < Handler.objects.size(); i++) {
-            Entity tempObject = Handler.objects.get(i);
-            if (tempObject.getId() == Identifier.Wall) {
-                if (getBounds().intersects(tempObject.getBounds())) {
-                    PosX += XSpeed * -1;
-                    PosY += YSpeed * -1;
-                }
-            }
-        }
-    }
-
     @Override
     public void Tick() {
         //Animations
@@ -58,7 +46,6 @@ public class Enemy extends Character {
         enemyAnimUp.tick();
 
         getAI(player);
-        collision();
         moveX();
         moveY();
     }
@@ -67,6 +54,8 @@ public class Enemy extends Character {
     public void Render(Graphics GraphicsObj) {
         GraphicsObj.drawImage(getCurrentAnimationFrame(), (int) (PosX - Handler.GetCamera().GetOffsetX()),
                 (int)(PosY - Handler.GetCamera().GetOffsetY()), Width, Height, null);
+        GraphicsObj.setColor(Color.BLUE);
+        GraphicsObj.fillRect((int)PosX + colBoundary.x, (int)PosY + colBoundary.y, colBoundary.width, colBoundary.height);
     }
 
     private void getAI(Player player) {
@@ -121,7 +110,7 @@ public class Enemy extends Character {
 
     @Override
     public Rectangle getBounds() {
-        return new Rectangle((int)PosX, (int)PosY, Width, Height);
+        return new Rectangle((int)PosX + colBoundary.x, (int)PosY - colBoundary.y, colBoundary.width, colBoundary.height);
     }
 
     private BufferedImage getCurrentAnimationFrame(){ // make the correct animation come up depending on the direction

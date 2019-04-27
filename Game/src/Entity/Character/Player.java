@@ -2,7 +2,6 @@ package Entity.Character;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import Entity.Entity;
 import Graphics.Sprites;
 import Main.Handler;
 import Graphics.Animation;
@@ -11,13 +10,13 @@ public class Player extends Character {
 	// Animations
 	private Animation rightCaraAnim, leftCaraAnim, downCaraAnim, upCaraAnim, lastAnim;
 	private int i = 0;
-	
+
 	public Player(Handler Handler,Identifier id, float PosX, float PosY) {
 		super(Handler, DefaultWidth, DefaultHeight, id, PosX, PosY);
 
-		colBoundary.x = 12;
+		colBoundary.x = 20;
 		colBoundary.y = 32;
-		colBoundary.width = 38;
+		colBoundary.width = 20;
 		colBoundary.height = 24;
 
 		//Animations init
@@ -28,13 +27,12 @@ public class Player extends Character {
 		lastAnim = downCaraAnim;
 
 	}
-	
+
 	private void GetKeyboardInput() {
 		XSpeed = 0;
 		YSpeed = 0;
 
-		collision();
-		
+
 		if(Handler.GetKeyboardInput().W == true) {
 			YSpeed = -Speed * SpeedFactor;
 		}
@@ -47,20 +45,9 @@ public class Player extends Character {
 		if(Handler.GetKeyboardInput().D == true) {
 			XSpeed = Speed * SpeedFactor;
 		}
-		
+
 	}
-	private void collision(){
-		for(int i = 0; i < Handler.objects.size(); i++) {
-			Entity tempObject = Handler.objects.get(i);
-			if (tempObject.getId() == Identifier.Wall) {
-				if (getBounds().intersects(tempObject.getBounds())) {
-					PosX += XSpeed * -1;
-					PosY += YSpeed * -1;
-				}
-			}
-		}
-	}
-	
+
 	@Override
 	public void Tick() {
 		//Animations
@@ -75,10 +62,12 @@ public class Player extends Character {
 	}
 
 	@Override
-	public void Render(Graphics GraphicsObj) { 
+	public void Render(Graphics GraphicsObj) {
 		//Hard coded spritesheet of 4 column, doesnt really work
 		//TODO
 		GraphicsObj.drawImage(getCurrentAnimationFrame(), (int)(PosX - Handler.GetCamera().GetOffsetX()), (int)(PosY - Handler.GetCamera().GetOffsetY()), Width, Height, null);
+		GraphicsObj.setColor(Color.RED);
+		GraphicsObj.fillRect((int)PosX + colBoundary.x, (int)PosY + colBoundary.y, colBoundary.width, colBoundary.height);
 	}
 
 	@Override
