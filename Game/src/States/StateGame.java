@@ -65,7 +65,7 @@ public class  StateGame extends StatesAbstract {
 //		if (PauseScreen == true) {
 //			Handler.GetMain().GetState().Render(GraphicsObj);
 //		}
-
+		GraphicsObj.fillRect(0, 800, 1440, (int) 100);
 	}
 
 	@Override
