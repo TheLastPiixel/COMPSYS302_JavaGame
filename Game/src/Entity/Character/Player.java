@@ -66,8 +66,6 @@ public class Player extends Character {
 		//Hard coded spritesheet of 4 column, doesnt really work
 		//TODO
 		GraphicsObj.drawImage(getCurrentAnimationFrame(), (int)(PosX - Handler.GetCamera().GetOffsetX()), (int)(PosY - Handler.GetCamera().GetOffsetY()), Width, Height, null);
-		GraphicsObj.setColor(Color.RED);
-		GraphicsObj.fillRect((int)PosX + colBoundary.x, (int)PosY + colBoundary.y, colBoundary.width, colBoundary.height);
 	}
 
 	@Override

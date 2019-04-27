@@ -54,8 +54,6 @@ public class Enemy extends Character {
     public void Render(Graphics GraphicsObj) {
         GraphicsObj.drawImage(getCurrentAnimationFrame(), (int) (PosX - Handler.GetCamera().GetOffsetX()),
                 (int)(PosY - Handler.GetCamera().GetOffsetY()), Width, Height, null);
-        GraphicsObj.setColor(Color.BLUE);
-        GraphicsObj.fillRect((int)PosX + colBoundary.x, (int)PosY + colBoundary.y, colBoundary.width, colBoundary.height);
     }
 
     private void getAI(Player player) {
