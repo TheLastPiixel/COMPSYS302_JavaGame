@@ -1,8 +1,8 @@
 package Entity.Character;
 
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-
+import Entity.Entity;
 import Graphics.Sprites;
 import Main.Handler;
 import Graphics.Animation;
@@ -12,8 +12,13 @@ public class Player extends Character {
 	private Animation rightCaraAnim, leftCaraAnim, downCaraAnim, upCaraAnim, lastAnim;
 	private int i = 0;
 	
-	public Player(Handler Handler, float PosX, float PosY) {
-		super(Handler, DefaultWidth, DefaultHeight, PosX, PosY);
+	public Player(Handler Handler,Identifier id, float PosX, float PosY) {
+		super(Handler, DefaultWidth, DefaultHeight, id, PosX, PosY);
+
+		colBoundary.x = 12;
+		colBoundary.y = 32;
+		colBoundary.width = 38;
+		colBoundary.height = 24;
 
 		//Animations init
 		rightCaraAnim = new Animation(100, Sprites.CaraLoftRight);
@@ -27,6 +32,8 @@ public class Player extends Character {
 	private void GetKeyboardInput() {
 		XSpeed = 0;
 		YSpeed = 0;
+
+		collision();
 		
 		if(Handler.GetKeyboardInput().W == true) {
 			YSpeed = -Speed * SpeedFactor;
@@ -41,6 +48,17 @@ public class Player extends Character {
 			XSpeed = Speed * SpeedFactor;
 		}
 		
+	}
+	private void collision(){
+		for(int i = 0; i < Handler.objects.size(); i++) {
+			Entity tempObject = Handler.objects.get(i);
+			if (tempObject.getId() == Identifier.Wall) {
+				if (getBounds().intersects(tempObject.getBounds())) {
+					PosX += XSpeed * -1;
+					PosY += YSpeed * -1;
+				}
+			}
+		}
 	}
 	
 	@Override
@@ -62,6 +80,17 @@ public class Player extends Character {
 		//TODO
 		GraphicsObj.drawImage(getCurrentAnimationFrame(), (int)(PosX - Handler.GetCamera().GetOffsetX()), (int)(PosY - Handler.GetCamera().GetOffsetY()), Width, Height, null);
 	}
+
+	@Override
+	public Identifier getId() {
+		return id;
+	}
+
+	@Override
+	public Rectangle getBounds() {
+		return new Rectangle((int)PosX, (int)PosY, Width, Height);
+	}
+
 	private BufferedImage getCurrentAnimationFrame(){ // make the correct animation come up depending on the direction
 
 		if(XSpeed < 0){
@@ -80,5 +109,4 @@ public class Player extends Character {
 			return lastAnim.getFirstFrame();
 		}
 	}
-
 }

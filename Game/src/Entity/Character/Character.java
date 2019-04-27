@@ -1,8 +1,9 @@
 package Entity.Character;
 
 import Entity.Entity;
-import Main.Main;
 import Main.Handler;
+import Tiles.Tiles;
+
 
 public abstract class Character extends Entity{
 
@@ -16,10 +17,11 @@ public abstract class Character extends Entity{
 	public static int DefaultHeight = 64;
 	public static int DefaultHealth = 100;
 	public static int DefaultSpeed = 3;
+	protected int attackRange = 40;
 	
 	
-	public Character(Handler Handler, int Width, int Height, float PosX, float PosY) {
-		super(Handler, Width, Height, PosX, PosY);
+	public Character(Handler Handler, int Width, int Height, Identifier id, float PosX, float PosY) {
+		super(Handler, Width, Height, id, PosX, PosY);
 		Health = DefaultHealth;
 		Mode = 1;
 		//Speed variables
@@ -32,8 +34,52 @@ public abstract class Character extends Entity{
 	}
 	
 	public void MovementSpeed() {
-		PosX = PosX + XSpeed;
-		PosY = PosY + YSpeed;
+		if(!checkEntityCollisions(XSpeed, 0f)){
+			moveX();
+		}
+		if(!checkEntityCollisions(0, YSpeed)){
+			moveY();
+		}
+	}
+	public void moveX() {
+		if (XSpeed > 0) {        //moving right
+			int tx = (int) (PosX + XSpeed + colBoundary.x + colBoundary.width) / Tiles.TileWidth;
+			if(!collisionWithTile(tx,(int)(PosY + colBoundary.y) / Tiles.TileHeight) && !collisionWithTile(tx, (int) (PosY + colBoundary.y + colBoundary.height)/Tiles.TileHeight)) { // check if top right is colliding
+				PosX += XSpeed;
+			}else{ // there was a collision, so we reset the x position of the player and line it up next to the tile
+				PosX = (tx * Tiles.TileWidth) - colBoundary.x - colBoundary.width - 1; // leaves a 1px gap
+			}
+
+		} else if(XSpeed < 0){     //moving left
+			int tx = (int) (PosX + XSpeed + colBoundary.x) / Tiles.TileWidth;
+			if(!collisionWithTile(tx,(int)(PosY + colBoundary.y) / Tiles.TileHeight) && !collisionWithTile(tx, (int) (PosY + colBoundary.y + colBoundary.height)/Tiles.TileHeight)) { // check if top right is colliding
+				PosX += XSpeed;
+			}else{
+				PosX = (tx * Tiles.TileWidth) + Tiles.TileWidth - colBoundary.x;
+			}
+		}
+	}
+	public void moveY(){
+		if(YSpeed < 0){ //up
+			int ty = (int) (PosY + YSpeed + colBoundary.y) / Tiles.TileHeight; // sets to top of collision rectangle
+
+			if(!collisionWithTile((int)(PosX + colBoundary.x) / Tiles.TileWidth, ty) && // checks top left and top right for collisions
+					!collisionWithTile((int)(PosX + colBoundary.x + colBoundary.width) / Tiles.TileWidth, ty)){
+				PosY += YSpeed;
+			}else{
+				PosY = ty * Tiles.TileHeight + Tiles.TileHeight - colBoundary.y;
+			}
+
+
+		}else if (YSpeed > 0){ //down
+			int ty = (int)(PosY + YSpeed + colBoundary.y + colBoundary.height) / Tiles.TileHeight; // set to bottom of collision rectangle
+			if(!collisionWithTile((int)(PosX + colBoundary.x) / Tiles.TileWidth, ty) && //checks bottom left and right for collisions
+					!collisionWithTile((int)(PosX + colBoundary.x + colBoundary.width) / Tiles.TileWidth, ty)){
+				PosY += YSpeed;
+			}else{
+				PosY = ty * Tiles.TileHeight - colBoundary.y - colBoundary.height - 1;
+			}
+		}
 	}
 
 	//Health Getter & Setter
@@ -82,6 +128,10 @@ public abstract class Character extends Entity{
 	}
 	public void SetYSpeed(float YSpeed) {
 		YSpeed = YSpeed;
+	}
+
+	protected boolean collisionWithTile(int x, int y){
+		return Handler.getRoom().GetTileTexture(x,y).IsSolid(); // get true or false whether it is sold
 	}
 
 }
