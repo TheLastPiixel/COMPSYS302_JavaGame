@@ -12,9 +12,13 @@ import java.awt.event.MouseListener;
 public class MouseInput implements MouseListener{
 	
 	private StatesAbstract StateGame;
+	//Main Menu Buttons
 	public boolean Play = false;
 	public boolean Settings = false;
 	public boolean Exit = false;
+	//Pause Menu Buttons
+	public boolean Resume = false;
+	public boolean Quit = false;
 	
 	public MouseInput() {
 		
@@ -24,6 +28,8 @@ public class MouseInput implements MouseListener{
 		Play = false;
 		Settings = false;
 		Exit = false;
+		Resume = false;
+		Quit = false;
 	}
 	
 	public void Tick() {
@@ -51,26 +57,32 @@ public class MouseInput implements MouseListener{
 		int PosX = Event.getX();
 		int PosY = Event.getY();
 		
+		//Main Menu Buttons
 		if (PosX >= 520 & PosX <= 920) {
 			if (PosY >= 250 & PosY <= 400) {
-				//Press play
 				Play = true;
 			}
 		}
-
 		if (PosX >= 520 & PosX <= 920) {
 			if (PosY >= 430 & PosY <= 580) {
 				Settings = true;
-				//Press settings
+			}
+		}
+		if (PosX >= 520 & PosX <= 920) {
+			if (PosY >= 610 & PosY <= 760) {
+				Exit = true;
 			}
 		}
 		
-		
+		//Pause Menu Buttons
 		if (PosX >= 520 & PosX <= 920) {
-			if (PosY >= 610 & PosY <= 760) {
-				//Press exit
-				Exit = true;
-				
+			if (PosY >= 300 & PosY <= 450) {
+				Resume = true;
+			}
+		}
+		if (PosX >= 520 & PosX <= 920) {
+			if (PosY >= 530 & PosY <= 680) {
+				Quit = true;
 			}
 		}
 	}

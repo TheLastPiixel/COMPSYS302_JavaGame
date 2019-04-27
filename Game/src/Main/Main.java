@@ -5,6 +5,7 @@ import Input.MouseInput;
 import States.StatesAbstract;
 import States.StateMenu;
 import States.StateGame;
+import States.StatePause;
 import java.awt.image.BufferStrategy;
 import Input.KeyboardInput;
 import Graphics.Camera;
@@ -20,6 +21,7 @@ public class Main implements Runnable {
 	private BufferStrategy BuffStrat;
 	private Graphics GraphicsObj;
 	private boolean Operating = false;
+	private boolean Paused = false;
 	private int x;
 	private static States.StatesAbstract CurrentState = null;
 	//Handler
@@ -27,6 +29,7 @@ public class Main implements Runnable {
 	//States
 	public StatesAbstract StateGame;
 	public StatesAbstract StateMenu;
+	public StatesAbstract StatePause;
 	//Inputs
 	private MouseInput MouseInput;
 	private KeyboardInput KeyboardInput;
@@ -47,18 +50,22 @@ public class Main implements Runnable {
 	private void Initialize() {
 		//Sets the display
 		Display = new Display(Title, Width, Height);
+		
+		//Sets the Input listers
 		Display.GetFrame().addKeyListener(KeyboardInput);
 		Display.GetFrame().addMouseListener(MouseInput);
 		Display.GetCanvas().addMouseListener(MouseInput);
+		
 		//Loads the sprite sheet
 		Sprites.LoadSprites();
+		
 		Handler = new Handler(this);
-
 		GameCamera = new Camera(Handler,this, 0, 0);
 
 		//Initializes all the states
 		StateGame = new StateGame(Handler);
 		StateMenu = new StateMenu(Handler);
+		StatePause = new StatePause(Handler);
 		SetState(StateMenu);
 	}
 	
@@ -159,9 +166,22 @@ public class Main implements Runnable {
 				e.printStackTrace();
 			}
 		}
-		
 		else {
 			return;
+		}
+	}
+	
+	//Pause & Resume Methods
+	public synchronized void Pause() {
+		if (Paused == false) {
+			Paused = true;
+			GameThread.suspend();
+		}
+	}
+	public synchronized void Resume() {
+		if (Paused == true) {
+			Paused = false;
+			GameThread.resume();;
 		}
 	}
 	

@@ -10,6 +10,10 @@ public class Sprites {
 	public static BufferedImage Grass;
 	public static BufferedImage Sandstone;
 	public static BufferedImage WoodenTile;
+	public static BufferedImage WoodenStairs;
+	public static BufferedImage Bush;
+	public static BufferedImage Tree;
+	public static BufferedImage Crate;
 	
 	
 	public static void LoadSprites() {
@@ -21,7 +25,8 @@ public class Sprites {
 		CaraLoftLeft = new BufferedImage[4];
 		CaraLoftRight = new BufferedImage[4];
 		CaraLoftBack = new BufferedImage[4];
-
+		
+		//CaraLoft Animation
 		for(int x = 0; x < CaraLoftFront.length; x++){
 			CaraLoftFront[x] = Sheet.CropSheet(Width, Height, Width * x, 0);
 		}
@@ -35,9 +40,14 @@ public class Sprites {
 			CaraLoftBack[x] = Sheet.CropSheet(Width, Height, Width * x, 0);
 		}
 
+		//Tiles
 		Grass = Tiles.CropSheet(Width, Height, 0, 0);
 		Sandstone = Tiles.CropSheet(Width, Height, 64, 0);
 		WoodenTile = Tiles.CropSheet(Width, Height, 128, 0);
+		WoodenStairs = Tiles.CropSheet(Width, Height, 192, 0);
+		Bush = Tiles.CropSheet(Width, Height, 0, 64);
+		Tree = Tiles.CropSheet(Width, Height, 64, 64);
+		Crate = Tiles.CropSheet(Width, Height, 128, 64);
 		
 		
 	}

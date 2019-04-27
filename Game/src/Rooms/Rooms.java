@@ -89,19 +89,28 @@ public class Rooms {
 		}
 	}
 
+	//GETTERS & SETTERS
 	public int getWidth() {
 		return Width;
 	}
 
-	public void setWidth(int width) {
-		Width = width;
+	public void setWidth(int Width) {
+		this.Width = Width;
 	}
 
 	public int getHeight() {
 		return Height;
 	}
 
-	public void setHeight(int height) {
-		Height = height;
+	public void setHeight(int Height) {
+		this.Height = Height;
+	}
+	
+	public int GetInitialX() {
+		return InitialX;
+	}
+	
+	public int GetInitialY() {
+		return InitialY;
 	}
 }
