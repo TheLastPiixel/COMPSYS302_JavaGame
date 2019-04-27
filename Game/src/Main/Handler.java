@@ -57,11 +57,4 @@ public class Handler {
 		return Game.GetCamera();
 	}
 
-	public Rooms getRoom() {
-		return Room;
-	}
-
-	public void setRoom(Rooms room) {
-		Room = room;
-	}
 }

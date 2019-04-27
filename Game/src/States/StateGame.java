@@ -49,7 +49,6 @@ public class  StateGame extends StatesAbstract {
 	@Override
 	public void Tick() {
 		//Checks which room to Tick
-		System.out.println("Im ticking");
 		if (CurrentRoom == 0) {
 			Outside.Tick();
 		}
@@ -67,13 +66,13 @@ public class  StateGame extends StatesAbstract {
 				//Sets the player to the initial position for the room
 				CaraLoft.SetPosX(Hall.GetInitialX() * 32);
 				CaraLoft.SetPosY(Hall.GetInitialY() * 32);
+				Handler.SetRoom(Hall);
 			}
 		}
 		
 		//Pause screen
 		if (Handler.GetKeyboardInput().P == true || Handler.GetKeyboardInput().Esc == true) {
 			//if (PauseScreen == false) {
-				System.out.println("Pause");
 				Handler.GetMain().SetState(Handler.GetMain().StatePause);
 				//PauseScreen = true;
 			//}
