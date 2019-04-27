@@ -29,13 +29,13 @@ public class Camera {
 	private void fixToScreen(){
 		if(OffsetX < 0) {
 			OffsetX = 0;
-		}else if(OffsetX >  handler.getRoom().getWidth() *  Tiles.TileWidth - handler.GetWidth()){
-			OffsetX = handler.getRoom().getWidth() * Tiles.TileWidth - handler.GetWidth();
+		}else if(OffsetX >  handler.GetRoom().getWidth() *  Tiles.TileWidth - handler.GetWidth()){
+			OffsetX = handler.GetRoom().getWidth() * Tiles.TileWidth - handler.GetWidth();
 		}
 		if (OffsetY < 0) {
 			OffsetY = 0;
-		}else if(OffsetY > handler.getRoom().getHeight() * Tiles.TileHeight - handler.GetHeight()){
-			OffsetY = handler.getRoom().getHeight() * Tiles.TileHeight - handler.GetHeight();
+		}else if(OffsetY > handler.GetRoom().getHeight() * Tiles.TileHeight - handler.GetHeight()){
+			OffsetY = handler.GetRoom().getHeight() * Tiles.TileHeight - handler.GetHeight();
 		}
 	}
 

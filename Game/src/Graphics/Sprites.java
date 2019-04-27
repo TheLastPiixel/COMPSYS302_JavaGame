@@ -11,6 +11,10 @@ public class Sprites {
 	public static BufferedImage Grass;
 	public static BufferedImage Sandstone;
 	public static BufferedImage WoodenTile;
+	public static BufferedImage WoodenStairs;
+	public static BufferedImage Bush;
+	public static BufferedImage Tree;
+	public static BufferedImage Crate;
 	
 	
 	public static void LoadSprites() {
@@ -22,7 +26,8 @@ public class Sprites {
 		CaraLoftLeft = new BufferedImage[4];
 		CaraLoftRight = new BufferedImage[4];
 		CaraLoftBack = new BufferedImage[4];
-
+		
+		//CaraLoft Animation
 		for(int x = 0; x < CaraLoftFront.length; x++){
 			CaraLoftFront[x] = Sheet.CropSheet(Width, Height, Width * x, 0);
 		}
@@ -36,11 +41,16 @@ public class Sprites {
 			CaraLoftBack[x] = Sheet.CropSheet(Width, Height, Width * x, 0);
 		}
 
+		//Tiles
 		Grass = Tiles.CropSheet(Width, Height, 0, 0);
 		Sandstone = Tiles.CropSheet(Width, Height, 64, 0);
 		WoodenTile = Tiles.CropSheet(Width, Height, 128, 0);
+		WoodenStairs = Tiles.CropSheet(Width, Height, 192, 0);
+		Bush = Tiles.CropSheet(Width, Height, 0, 64);
+		Tree = Tiles.CropSheet(Width, Height, 64, 64);
+		Crate = Tiles.CropSheet(Width, Height, 128, 64);
 
-		SpriteSheet sheet6 = new SpriteSheet((TextureLoader.Image("/textures/BODY_male_Epic_armors_Golden.png")));
+		SpriteSheet sheet2 = new SpriteSheet((TextureLoader.Image("/textures/BODY_male_Epic_armors_Golden.png")));
 
 		enemy_right = new BufferedImage[8];
 		enemy_left  = new BufferedImage[8];
@@ -48,17 +58,16 @@ public class Sprites {
 		enemy_up = new BufferedImage[8];
 
 		for(int x = 0; x < enemy_up.length; x++){
-			enemy_up[x] = sheet6.CropSheet(Width, Height, Width * x, 0);
+			enemy_up[x] = sheet2.CropSheet(Width, Height, Width * x, 0);
 		}
 		for(int x = 0; x < enemy_left.length; x++){
-			enemy_left[x] = sheet6.CropSheet(Width, Height, Width * x, Height * 1);
+			enemy_left[x] = sheet2.CropSheet(Width, Height, Width * x, Height * 1);
 		}
 		for(int x = 0; x < enemy_down.length; x++){
-			enemy_down[x] = sheet6.CropSheet(Width, Height, Width * x, Height * 2);
+			enemy_down[x] = sheet2.CropSheet(Width, Height, Width * x, Height * 2);
 		}
 		for(int x = 0; x < enemy_right.length; x++){
-			enemy_right[x] = sheet6.CropSheet(Width, Height, Width * x, Height * 3);
+			enemy_right[x] = sheet2.CropSheet(Width, Height, Width * x, Height * 3);
 		}
-		
 	}
 }
