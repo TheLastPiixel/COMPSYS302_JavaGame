@@ -7,8 +7,8 @@ import Graphics.Sprites;
 
 public class Apple extends Item{
 
-	public Apple(Main.Handler Handler, int Width, int Height, Identifier id, float PosX, float PosY) {
-		super(Handler, Width, Height, Identifier.Apple, PosX, PosY);
+	public Apple(Main.Handler Handler, float PosX, float PosY) {
+		super(Handler, DefaultWidth, DefaultHeight, Identifier.Apple, PosX, PosY);
 		
 		colBoundary.x = 10;
 		colBoundary.y = 10;

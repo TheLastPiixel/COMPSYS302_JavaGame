@@ -117,7 +117,12 @@ public class Main implements Runnable {
 		if (CurrentTimeSeconds >= 300) {
 			CurrentTimeSeconds = 300;
 		}
-		System.out.println("Time Left: " + MinutesLeft + ":" + SecondsLeft);
+		if (CurrentTimeSeconds >= 300) {
+			MinutesLeft = 0;
+			SecondsLeft = 0;
+			CurrentTimeSeconds = 0;
+			finalTime = 0;
+		}
 	}
 
 	private void Render() { //Draws to screen
