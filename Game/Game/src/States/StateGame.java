@@ -136,7 +136,7 @@ public class  StateGame extends StatesAbstract {
 			CurrentRoom = 2;
 			CaraLoft.SetPosX(Office.GetInitialX() * 64);
 			CaraLoft.SetPosY(Office.GetInitialY() * 64);
-			Handler.addEntity(Boss = new Boss(Handler, Identifier.Boss, 200, 200, CaraLoft));
+			Handler.addEntity(Boss = new Boss(Handler, Identifier.Boss, 600, 200, CaraLoft));
 		}
 		
 		//Checks which room to Tick
@@ -180,16 +180,16 @@ public class  StateGame extends StatesAbstract {
 		if (CurrentRoom == 0) {
 			if (CaraLoft.GetPosX() > 11*64 & CaraLoft.GetPosX() < 13*64) { //704 < X 832
 				if (CaraLoft.GetPosY() > 64 & CaraLoft.GetPosY() < 2*64) { //0 < 64
-					if(CaraLoft.GetEliminated() > 3) {
+					if(Handler.GetMain().getEliminated() > 3) {
 						Handler.clearEntities();
 						CurrentRoom = 1;
 						//Sets the player to the initial position for the room
 						CaraLoft.SetPosX(Hall.GetInitialX() * 64);
 						CaraLoft.SetPosY(Hall.GetInitialY() * 64);
 						Handler.SetRoom(Hall);
-						Handler.addEntity(enemy1 = new Enemy(Handler, Identifier.Enemy, 400, 600, CaraLoft));
-						Handler.addEntity(enemy2 = new Enemy(Handler, Identifier.Enemy, 700, 200, CaraLoft));
-						Handler.addEntity(enemy3 = new Enemy(Handler, Identifier.Enemy, 1200, 300, CaraLoft));
+						Handler.addEntity(enemy1 = new Enemy(Handler, Identifier.Enemy, 400, 900, CaraLoft));
+						Handler.addEntity(enemy2 = new Enemy(Handler, Identifier.Enemy, 700, 600, CaraLoft));
+						Handler.addEntity(enemy3 = new Enemy(Handler, Identifier.Enemy, 1200, 600, CaraLoft));
 						Handler.addEntity(enemy4 = new Enemy(Handler, Identifier.Enemy, 1000, 1000, CaraLoft));
 						Handler.addEntity(enemy5 = new Enemy(Handler, Identifier.Enemy, 1800, 1900, CaraLoft));
 						Handler.addEntity(enemy6 = new Enemy(Handler, Identifier.Enemy, 850, 1600, CaraLoft));
@@ -202,7 +202,7 @@ public class  StateGame extends StatesAbstract {
 			//Enter the office
 			if (CaraLoft.GetPosX() > 15*64 & CaraLoft.GetPosX() < 17*64) { 
 				if (CaraLoft.GetPosY() > 64 & CaraLoft.GetPosY() < 2*64) { 
-					if (CaraLoft.GetEliminated() > 9 & CaraLoft.getHasKey()) {
+					if (Handler.GetMain().getEliminated() > 9 & CaraLoft.getHasKey()) {
 						Handler.clearEntities();
 						CurrentRoom = 2;
 						//Sets the player to the initial position for the room

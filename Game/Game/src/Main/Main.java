@@ -40,6 +40,8 @@ public class Main implements Runnable {
 	private long CurrentTime;
 	private long CurrentTimeSeconds;
 	private long InitialTime;
+	private int Eliminated = 0;
+	private long finalTime;
 	
 	
 	private static States.StatesAbstract CurrentState = null;
@@ -250,6 +252,29 @@ public class Main implements Runnable {
 	}
 	public long GetSecondsleft() {
 		return SecondsLeft;
+	}
+
+	public int getEliminated() {
+		return Eliminated;
+	}
+	public void saveFinalTime(){
+		finalTime = GetSecondsleft();
+	}
+
+	public long getFinalTime() {
+		return finalTime;
+	}
+
+	public void setFinalTime(long finalTime) {
+		this.finalTime = finalTime;
+	}
+
+	public void setEliminated(int eliminated) {
+		Eliminated = eliminated;
+	}
+
+	public void SetEliminated(int i) {
+		this.Eliminated = i;
 	}
 }
 

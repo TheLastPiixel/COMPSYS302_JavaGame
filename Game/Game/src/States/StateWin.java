@@ -22,6 +22,7 @@ public class StateWin extends StatesAbstract {
 	public Rectangle ResumeButtonInside = new Rectangle(525, 305, 390, 140);
 	public Rectangle QuitButton = new Rectangle(520, 530, 400, 150);
 	public Rectangle QuitButtonInside = new Rectangle(525, 535, 390, 140);
+	private int score;
 	
 	@Override
 	public void Render(Graphics GraphicsObj) {
@@ -50,11 +51,13 @@ public class StateWin extends StatesAbstract {
 		GraphicsObj.setColor(Color.white);
 		GraphicsObj.drawString("Exit", 670, 390);
 
-
+		//Score
+		GraphicsObj.drawString("Score: " + score , 580, 400);
 	}
 
 	@Override
 	public void Tick() {
+		score = (Handler.GetMain().getEliminated() * 1000 + (int)(300 - Handler.GetMain().getFinalTime() * 0.86));
 		if (Handler.GetMouseInput().Resume == true || Handler.GetKeyboardInput().Esc) {
 			System.exit(1);
 			Handler.GetMouseInput().Refresh();

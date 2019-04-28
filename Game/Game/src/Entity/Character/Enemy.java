@@ -195,6 +195,6 @@ public class Enemy extends Character {
 
 	@Override
 	public void Dead() {
-		player.SetEliminated(player.GetEliminated() + 1);
+		Handler.GetMain().SetEliminated(Handler.GetMain().getEliminated() + 1);
 	}
 }
