@@ -15,11 +15,15 @@ public class Player extends Character {
 	private int CurrentDirection;
 	private int CurrentHealth;
 	private boolean AttackButton;
+	private boolean Stunned = false;
+	private boolean CurrentlyStunned = false;
 	private long AttackCooldown;
 	private long LastAttack;
 	private long Clock;
 	private Boolean hasKey = false;
 	private Rectangle AttackArea = new Rectangle();
+	private int Score;
+	private int Eliminated = 0;
 
 	public Player(Handler Handler,Identifier id, float PosX, float PosY) {
 		super(Handler, DefaultWidth, DefaultHeight, id, PosX, PosY);
@@ -73,13 +77,29 @@ public class Player extends Character {
 		MovementSpeed();
 		Handler.GetCamera().Centre(this);
 		
+		//Checks and sets player to stunned
+		if (Stunned == true) {
+			AttackCooldown = 10000;
+			LastAttack = System.currentTimeMillis();
+			Stunned = false;
+			CurrentlyStunned = true;
+		}
+		
+		System.out.println(AttackCooldown);
 		
 		Attack();
 	}
 	
 	private void Attack() {
 		if ((System.currentTimeMillis() - LastAttack) > AttackCooldown) {
-		
+			
+			//Checks if player's stunned time is over
+			if (CurrentlyStunned == true) {
+				AttackCooldown = 500;
+				Stunned = false;
+				CurrentlyStunned = false;
+			}
+			
 			CurrentDirection = Handler.GetKeyboardInput().GetCurrentDirection();
 			Rectangle CollisionBound = getCollisionBounds(0, 0);
 	
@@ -165,6 +185,7 @@ public class Player extends Character {
 		}
 	}
 
+	//GETTERS & SETTERS
 	public Boolean getHasKey() {
 		return hasKey;
 	}
@@ -173,10 +194,28 @@ public class Player extends Character {
 		this.hasKey = hasKey;
 	}
 	@Override
-	public void Dead(){
-	Handler.GetMain().SetState(Handler.GetMain().StateLose);
-	Handler.GetMain().saveTime();
+	public void Dead() {
+		Handler.GetMain().SetState(Handler.GetMain().StateLose);
+	}
+	
+	public int GetEliminated() {
+		return Eliminated;
 	}
 
+	public void SetEliminated(int j) {
+		this.Eliminated = j;
+	}
+	
+	public void SetStunned (boolean Stunned) {
+		this.Stunned = Stunned;
+	}
+	
+	public boolean GetStunned() {
+		return Stunned;
+	}
+	
+	public boolean GetCurrentlyStunned() {
+		return CurrentlyStunned;
+	}
 
 }
