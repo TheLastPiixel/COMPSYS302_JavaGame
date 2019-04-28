@@ -7,9 +7,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
-import Entity.Entity;
 import Graphics.Sprites;
-import Main.Handler;
 import Graphics.Animation;
 
 public class Enemy extends Character {
@@ -45,7 +43,6 @@ public class Enemy extends Character {
         enemyAnimDown = new Animation(100, Sprites.enemy_down);
         enemyAnimUp = new Animation(100, Sprites.enemy_up);
         enemyLastAnim = enemyAnimDown;
-
     }
 
     @Override
@@ -109,7 +106,9 @@ public class Enemy extends Character {
     public void Render(Graphics GraphicsObj) {
         GraphicsObj.drawImage(getCurrentAnimationFrame(), (int) (PosX - Handler.GetCamera().GetOffsetX()),
                 (int)(PosY - Handler.GetCamera().GetOffsetY()), Width, Height, null);
- 
+        GraphicsObj.setColor(Color.BLUE);
+        GraphicsObj.drawRect((int)(AttackArea.x - Handler.GetCamera().GetOffsetX()), (int)(AttackArea.y - Handler.GetCamera().GetOffsetY()),
+                AttackArea.width, AttackArea.height);
     }
 
     private void getAI(Player player) {
@@ -195,6 +194,6 @@ public class Enemy extends Character {
 
 	@Override
 	public void Dead() {
-		player.SetEliminated(player.GetEliminated() + 1);
+        Handler.GetMain().setEliminated(Handler.GetMain().getEliminated() + 1);
 	}
 }

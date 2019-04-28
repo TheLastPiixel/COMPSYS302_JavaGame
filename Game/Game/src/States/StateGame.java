@@ -33,6 +33,7 @@ public class  StateGame extends StatesAbstract {
 	private Rooms Outside;
 	private Rooms Hall;
 	private Rooms Office;
+	private boolean called = false;
 	private int CurrentRoom = 0;
 	private boolean PauseScreen = false;
 	public Comparator<Entity> SortRender = new Comparator<Entity>(){
@@ -119,16 +120,17 @@ public class  StateGame extends StatesAbstract {
 
 	@Override
 	public void Tick() {
-		System.out.println(CaraLoft.GetEliminated());
+		System.out.println(Handler.GetMain().getEliminated());
 		
 		
 		//Cheat to boss room
 		if(Handler.GetKeyboardInput().PageDown) {
 			Handler.clearEntities();
-			CurrentRoom = 2;
-			Handler.SetRoom(Office);
 			CaraLoft.SetPosX(Office.GetInitialX() * 64);
 			CaraLoft.SetPosY(Office.GetInitialY() * 64);
+			Handler.SetRoom(Office);
+			CurrentRoom = 2;
+			System.out.println("hi");
 		}
 		
 		//Checks which room to Tick
@@ -172,7 +174,7 @@ public class  StateGame extends StatesAbstract {
 		if (CurrentRoom == 0) {
 			if (CaraLoft.GetPosX() > 11*64 & CaraLoft.GetPosX() < 13*64) { //704 < X 832
 				if (CaraLoft.GetPosY() > 64 & CaraLoft.GetPosY() < 2*64) { //0 < 64
-					if(CaraLoft.GetEliminated() > 3) {
+					if(Handler.GetMain().getEliminated() > 3) {
 						Handler.clearEntities();
 						CurrentRoom = 1;
 						//Sets the player to the initial position for the room
@@ -194,7 +196,7 @@ public class  StateGame extends StatesAbstract {
 			//Enter the office
 			if (CaraLoft.GetPosX() > 15*64 & CaraLoft.GetPosX() < 17*64) { 
 				if (CaraLoft.GetPosY() > 64 & CaraLoft.GetPosY() < 2*64) { 
-					if (CaraLoft.GetEliminated() > 9 & CaraLoft.getHasKey()) {
+					if (Handler.GetMain().getEliminated() > 9 & CaraLoft.getHasKey()) {
 						Handler.clearEntities();
 						CurrentRoom = 2;
 						//Sets the player to the initial position for the room
@@ -214,5 +216,6 @@ public class  StateGame extends StatesAbstract {
 			//}
 		}
 	}
+
 	
 }

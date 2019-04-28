@@ -20,8 +20,6 @@ public class Player extends Character {
 	private long Clock;
 	private Boolean hasKey = false;
 	private Rectangle AttackArea = new Rectangle();
-	private int Score;
-	private int Eliminated = 0;
 
 	public Player(Handler Handler,Identifier id, float PosX, float PosY) {
 		super(Handler, DefaultWidth, DefaultHeight, id, PosX, PosY);
@@ -175,17 +173,10 @@ public class Player extends Character {
 		this.hasKey = hasKey;
 	}
 	@Override
-	public void Dead() {
-		Handler.GetMain().SetState(Handler.GetMain().StateLose);
-	}
-	
-	public int GetEliminated() {
-		return Eliminated;
+	public void Dead(){
+	Handler.GetMain().SetState(Handler.GetMain().StateLose);
+	Handler.GetMain().saveTime();
 	}
 
-	public void SetEliminated(int j) {
-		this.Eliminated = j;
-		
-	}
 
 }

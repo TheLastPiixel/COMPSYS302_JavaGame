@@ -197,7 +197,7 @@ public class Boss extends Character {
 
 	@Override
 	public void Dead() {
-		Handler.GetMain().GetState().SetEliminated(Handler.GetMain().GetState().GetEliminated() + 0);
+		Handler.GetMain().setEliminated(Handler.GetMain().getEliminated() + 0);
 		Handler.GetMain().SetState(Handler.GetMain().StateWin);
 	}
 }
