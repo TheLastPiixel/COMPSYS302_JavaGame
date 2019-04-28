@@ -29,7 +29,8 @@ public class Handler {
 	public void clearEntities(){
 		for(int i = 0; i < this.getEntities().size(); i++ ){
 			if (this.getEntities().get(i).getId() != Identifier.Player){
-				this.removeEntity(this.getEntities().get(i));
+				Entity e = this.getEntities().get(i);
+				this.removeEntity(e);
 			}
 		}
 	}

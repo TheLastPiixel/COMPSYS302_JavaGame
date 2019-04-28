@@ -18,6 +18,7 @@ import java.awt.image.BufferStrategy;
 import Input.KeyboardInput;
 import Graphics.Camera;
 import Graphics.Sprites;
+import Main.Handler;
 
 public class Main implements Runnable {
 	
@@ -39,8 +40,6 @@ public class Main implements Runnable {
 	private long CurrentTime;
 	private long CurrentTimeSeconds;
 	private long InitialTime;
-	private int Eliminated = 0;
-	private long finalTime;
 	
 	
 	private static States.StatesAbstract CurrentState = null;
@@ -102,6 +101,7 @@ public class Main implements Runnable {
 		}
 		KeyboardInput.Tick();
 		MouseInput.Tick();
+		
 		//Timer
 		if (GetState() == StateGame & TimerInitialized == false) {
 			InitialTime = System.currentTimeMillis();
@@ -111,6 +111,9 @@ public class Main implements Runnable {
 		if (CurrentTime <= TimeGoal) {
 			MinutesLeft = Math.round((300 - CurrentTimeSeconds) / 60);
 			SecondsLeft = Math.floorMod(300 - CurrentTimeSeconds, 60);
+		}
+		if (CurrentTimeSeconds >= 300) {
+			CurrentTimeSeconds = 300;
 		}
 		System.out.println("Time Left: " + MinutesLeft + ":" + SecondsLeft);
 	}
@@ -133,7 +136,6 @@ public class Main implements Runnable {
 		if(GetState() != null) {
 			GetState().Render(GraphicsObj);
 		}
-
 		
 		//Disposes graphics after its been displayed
 		GraphicsObj.dispose(); 
@@ -248,29 +250,6 @@ public class Main implements Runnable {
 	}
 	public long GetSecondsleft() {
 		return SecondsLeft;
-	}
-
-	public int getEliminated() {
-		return Eliminated;
-	}
-
-	public void setEliminated(int eliminated) {
-		Eliminated = eliminated;
-	}
-
-	public long getCurrentTimeSeconds() {
-		return CurrentTimeSeconds;
-	}
-
-	public void setCurrentTimeSeconds(long currentTimeSeconds) {
-		CurrentTimeSeconds = currentTimeSeconds;
-	}
-	public void saveTime(){
-		finalTime = getCurrentTimeSeconds();
-	}
-
-	public long getFinalTime() {
-		return finalTime;
 	}
 }
 

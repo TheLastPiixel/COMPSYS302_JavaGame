@@ -2,6 +2,7 @@ package Entity.Character;
 import Main.Handler;
 import Rooms.Rooms;
 import States.StateGame;
+import Entity.Character.Player;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -97,6 +98,7 @@ public class Boss extends Character {
 				} 
 				else if(Handler.getEntities().get(i).getCollisionBounds(0, 0).intersects(AttackArea)) {
 					Handler.getEntities().get(i).Damage(25);
+					player.SetStunned(true);
 					LastAttack = System.currentTimeMillis();
 					return;
 				}
@@ -197,7 +199,7 @@ public class Boss extends Character {
 
 	@Override
 	public void Dead() {
-		Handler.GetMain().setEliminated(Handler.GetMain().getEliminated() + 0);
+		Handler.GetMain().GetState().SetEliminated(Handler.GetMain().GetState().GetEliminated() + 0);
 		Handler.GetMain().SetState(Handler.GetMain().StateWin);
 	}
 }

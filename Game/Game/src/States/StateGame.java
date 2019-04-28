@@ -33,7 +33,6 @@ public class  StateGame extends StatesAbstract {
 	private Rooms Outside;
 	private Rooms Hall;
 	private Rooms Office;
-	private boolean called = false;
 	private int CurrentRoom = 0;
 	private boolean PauseScreen = false;
 	public Comparator<Entity> SortRender = new Comparator<Entity>(){
@@ -93,7 +92,7 @@ public class  StateGame extends StatesAbstract {
 		
 		
 		//Draws the player UI
-		Font Font1 = new Font("Arial", Font.BOLD, 12);
+		Font Font1 = new Font("Arial", Font.BOLD, 20);
 		Font Font2 = new Font("Arial", Font.BOLD, 15);
 		
 		GraphicsObj.setColor(Color.lightGray);
@@ -101,7 +100,9 @@ public class  StateGame extends StatesAbstract {
 		GraphicsObj.setColor(Color.white);
 		
 		GraphicsObj.setFont(Font1);
-		GraphicsObj.drawString("Health: " + CaraLoft.GetHealth(), 690, 830);
+		GraphicsObj.fillRect(650, 800, CaraLoft.GetHealth(), 50);
+		GraphicsObj.drawString("Health: " + CaraLoft.GetHealth(), 680, 830);
+		
 		
 		//Draw Player's objctive
 		GraphicsObj.setFont(Font2);
@@ -111,26 +112,31 @@ public class  StateGame extends StatesAbstract {
 		GraphicsObj.setFont(Font1);
 		GraphicsObj.setColor(Color.white);
 		if (Handler.GetMain().GetSecondsleft() > 9) {
-			GraphicsObj.drawString("Time Left: " + (int)Handler.GetMain().GetMinutesLeft() + ":" + (int)Handler.GetMain().GetSecondsleft(), 700, 50);	
+			GraphicsObj.drawString("Time Left: " + (int)Handler.GetMain().GetMinutesLeft() + ":" + (int)Handler.GetMain().GetSecondsleft(), 650, 50);	
 		}
 		else {
-			GraphicsObj.drawString("Time Left: " + (int)Handler.GetMain().GetMinutesLeft() + ":0" + (int)Handler.GetMain().GetSecondsleft(), 700, 50);
+			GraphicsObj.drawString("Time Left: " + (int)Handler.GetMain().GetMinutesLeft() + ":0" + (int)Handler.GetMain().GetSecondsleft(), 650, 50);
 		}
+		
+		//Draw Stunned
+		if (CaraLoft.GetCurrentlyStunned() == true) {
+			GraphicsObj.setFont(Font1);
+			GraphicsObj.drawString("STUNNED!", 700, 430);
+		} 
 	}
 
 	@Override
 	public void Tick() {
-		System.out.println(Handler.GetMain().getEliminated());
-		
+		System.out.println(CaraLoft.GetEliminated());
 		
 		//Cheat to boss room
 		if(Handler.GetKeyboardInput().PageDown) {
 			Handler.clearEntities();
-			CaraLoft.SetPosX(Office.GetInitialX() * 64);
-			CaraLoft.SetPosY(Office.GetInitialY() * 64);
 			Handler.SetRoom(Office);
 			CurrentRoom = 2;
-			System.out.println("hi");
+			CaraLoft.SetPosX(Office.GetInitialX() * 64);
+			CaraLoft.SetPosY(Office.GetInitialY() * 64);
+			Handler.addEntity(Boss = new Boss(Handler, Identifier.Boss, 200, 200, CaraLoft));
 		}
 		
 		//Checks which room to Tick
@@ -174,7 +180,7 @@ public class  StateGame extends StatesAbstract {
 		if (CurrentRoom == 0) {
 			if (CaraLoft.GetPosX() > 11*64 & CaraLoft.GetPosX() < 13*64) { //704 < X 832
 				if (CaraLoft.GetPosY() > 64 & CaraLoft.GetPosY() < 2*64) { //0 < 64
-					if(Handler.GetMain().getEliminated() > 3) {
+					if(CaraLoft.GetEliminated() > 3) {
 						Handler.clearEntities();
 						CurrentRoom = 1;
 						//Sets the player to the initial position for the room
@@ -196,7 +202,7 @@ public class  StateGame extends StatesAbstract {
 			//Enter the office
 			if (CaraLoft.GetPosX() > 15*64 & CaraLoft.GetPosX() < 17*64) { 
 				if (CaraLoft.GetPosY() > 64 & CaraLoft.GetPosY() < 2*64) { 
-					if (Handler.GetMain().getEliminated() > 9 & CaraLoft.getHasKey()) {
+					if (CaraLoft.GetEliminated() > 9 & CaraLoft.getHasKey()) {
 						Handler.clearEntities();
 						CurrentRoom = 2;
 						//Sets the player to the initial position for the room
@@ -216,6 +222,5 @@ public class  StateGame extends StatesAbstract {
 			//}
 		}
 	}
-
 	
 }
