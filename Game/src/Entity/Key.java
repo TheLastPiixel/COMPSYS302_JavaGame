@@ -7,8 +7,8 @@ import Graphics.Sprites;
 
 public class Key extends Item{
 
-	public Key(Main.Handler Handler, float PosX, float PosY) {
-		super(Handler, DefaultWidth, DefaultHeight, Identifier.Key, PosX, PosY);
+	public Key(Main.Handler Handler, int Width, int Height, Identifier id, float PosX, float PosY) {
+		super(Handler, Width, Height, Identifier.Key, PosX, PosY);
 		colBoundary.x = 0;
 		colBoundary.y = 0;
 		colBoundary.width = 64;
@@ -22,13 +22,16 @@ public class Key extends Item{
 		GraphicsObj.drawImage(Sprites.Key, (int) (PosX - Handler.GetCamera().GetOffsetX()),
                 (int)(PosY - Handler.GetCamera().GetOffsetY()), Width, Height, null);	
 	}
+	
+	@Override
+	public void Dead() {
+		
+	}
+	
+	//GETTERS & SETTERS
 	public Identifier getId(){
 		return Identifier.Key;
 	}
 
-	@Override
-	public void Dead() {
-		// TODO Auto-generated method stub
-		
-	}
+
 }

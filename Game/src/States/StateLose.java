@@ -1,6 +1,5 @@
 package States;
 
-import Main.Main;
 import Main.Handler;
 import States.StatesAbstract;
 
@@ -9,10 +8,6 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-
-import Entity.Character.Player;
-import Graphics.Sprites;
-import Graphics.TextureLoader;
 
 public class StateLose extends StatesAbstract {
 
@@ -31,7 +26,6 @@ public class StateLose extends StatesAbstract {
 		//Font types
 		Font Font1 = new Font("monospace", Font.BOLD, 70);
 		Font Font2 = new Font("monospace", Font.BOLD, 50);
-		Font Font3 = new Font("monospace", Font.BOLD, 20);
 		
 		//Draw background image and title
 		GraphicsObj.setColor(Color.black);

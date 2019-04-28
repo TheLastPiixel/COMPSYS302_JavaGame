@@ -46,23 +46,6 @@ public class KeyboardInput implements KeyListener{
 		Zero = ActivatedKeys[KeyEvent.VK_0];
 	}
 	
-	public int GetCurrentDirection() {
-		//W, A, S, D = 0, 1, 2, 3
-		if(W == true) {
-			CurrentDirection = 0;
-		}
-		if(A == true) {
-			CurrentDirection = 1;
-		}
-		if(S == true) { 
-			CurrentDirection = 2;
-		}
-		if(D == true) {
-			CurrentDirection = 3;
-		}
-		return CurrentDirection;
-	}
-	
 	@Override
 	public void keyPressed(KeyEvent Event) {
 		//Records which keys are pressed
@@ -79,6 +62,24 @@ public class KeyboardInput implements KeyListener{
 	@Override
 	public void keyTyped(KeyEvent Event) {
 		
+	}
+	
+	//GETTERS & SETTERS
+	public int GetCurrentDirection() {
+		//W, A, S, D = 0, 1, 2, 3
+		if(W == true) {
+			CurrentDirection = 0;
+		}
+		if(A == true) {
+			CurrentDirection = 1;
+		}
+		if(S == true) { 
+			CurrentDirection = 2;
+		}
+		if(D == true) {
+			CurrentDirection = 3;
+		}
+		return CurrentDirection;
 	}
 	
 }

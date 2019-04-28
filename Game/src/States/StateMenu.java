@@ -1,6 +1,5 @@
 package States;
 
-import Main.Main;
 import Main.Handler;
 import Graphics.Sounds;
 import java.awt.Color;
@@ -8,8 +7,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.io.File;
 
-import Graphics.Sprites;
 import Graphics.TextureLoader;
 
 public class StateMenu extends StatesAbstract {
@@ -69,21 +68,21 @@ public class StateMenu extends StatesAbstract {
 	@Override
 	public void Tick() {
 		if (Handler.GetMouseInput().Play == true) {
-			Sounds.playSound("resources/sounds/confirm_style_2_001.wav");
+			Sounds.playSound(new File("resources/sounds/confirm_style_2_001.wav"));
 			Handler.GetMain().SetState(Handler.GetMain().StateGame);
 			Handler.GetMouseInput().Refresh();
 
 		}
 		
 		else if (Handler.GetMouseInput().Settings == true) {
-			Sounds.playSound("resources/sounds/confirm_style_2_001.wav");
+			Sounds.playSound(new File("resources/sounds/confirm_style_2_001.wav"));
 			Handler.GetMain().SetState(Handler.GetMain().StateSettings);
 			Handler.GetMouseInput().Refresh();
 
 		}
 	
 		else if (Handler.GetMouseInput().Exit == true) {
-			Sounds.playSound("resources/sounds/back_style_2_001.wav");
+			Sounds.playSound(new File("resources/sounds/back_style_2_001.wav"));
 			//Closes the game
 			Handler.GetMouseInput().Refresh();
 			Handler.GetMain().Stop();

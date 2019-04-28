@@ -2,7 +2,6 @@ package Main;
  
 import java.lang.Math;
 
-import Entity.Character.Identifier;
 import Entity.Character.Player;
 
 import java.awt.Graphics;
@@ -29,9 +28,6 @@ public class Main implements Runnable {
 	private BufferStrategy BuffStrat;
 	private Graphics GraphicsObj;
 	private boolean Operating = false;
-	private boolean Paused = false;
-	private int x;
-	private Player CaraLoft;
 	//Timer variables
 	private boolean TimerInitialized = false;
 	private final int TimeGoal;
@@ -42,7 +38,6 @@ public class Main implements Runnable {
 	private long InitialTime;
 	private int Eliminated = 0;
 	private long finalTime;
-	
 	
 	private static States.StatesAbstract CurrentState = null;
 	//Handler
@@ -179,13 +174,10 @@ public class Main implements Runnable {
 
 			if(System.currentTimeMillis() - Clk > 1000) {
 				Clk += 1000;
-				//System.out.println("FPS: " + Fps);
 				Fps = 0;
 			}
-			
 		}
 		Stop(); 
-		
 	}
 	
 	public synchronized void Start() { //Prevents thread interference
@@ -194,11 +186,9 @@ public class Main implements Runnable {
 			GameThread = new Thread(this);
 			GameThread.start();
 		}
-		
 		else {
 			return;
 		}
-		
 	}
 	
 	public synchronized void Stop() { //Stop the thread
@@ -217,7 +207,6 @@ public class Main implements Runnable {
 			return;
 		}
 	}
-	
 	
 	//GETTERS & SETTERS
 	//Width & Height

@@ -2,16 +2,12 @@ package Main;
 
 import Entity.Entity;
 import Entity.Character.Identifier;
-import Entity.Character.Player;
 import Graphics.Camera;
 import Input.KeyboardInput;
 import Input.MouseInput;
 import Rooms.Rooms;
-import States.StateGame;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 public class Handler {
 	public ArrayList<Entity> objects = new ArrayList<Entity>();
@@ -26,6 +22,7 @@ public class Handler {
 		this.Game = Game;
 		objects = new ArrayList<Entity>();
 	}
+	
 	public void clearEntities(){
 		for(int i = 0; i < this.getEntities().size(); i++ ){
 			if (this.getEntities().get(i).getId() != Identifier.Player){
@@ -84,5 +81,4 @@ public class Handler {
 		objects.remove(entity);
 	}
 
-	
 }

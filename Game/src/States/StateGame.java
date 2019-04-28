@@ -17,6 +17,7 @@ import Main.Helpers;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.File;
 import java.util.Comparator;
 
 public class  StateGame extends StatesAbstract {
@@ -60,6 +61,8 @@ public class  StateGame extends StatesAbstract {
 		Handler.addEntity(enemy3 = new Enemy(Handler, Identifier.Enemy, 400, 700, CaraLoft));
 		Handler.addEntity(enemy4 = new Enemy(Handler, Identifier.Enemy, 1200, 550, CaraLoft));
 		Handler.addEntity(apple1 = new Apple(Handler, 500, 500));
+		Handler.addEntity(apple2 = new Apple(Handler, 1000, 1000));
+		Handler.addEntity(apple3 = new Apple(Handler, 1400, 800));
 
 	}
 
@@ -107,9 +110,6 @@ public class  StateGame extends StatesAbstract {
 		//Draw Time Left
 		GraphicsObj.setFont(Font1);
 		GraphicsObj.setColor(Color.white);
-		if(Handler.GetMain().GetMinutesLeft() == 0 && Handler.GetMain().GetSecondsleft() == 0){
-		    GraphicsObj.setColor(Color.RED);
-        }
 		if (Handler.GetMain().GetSecondsleft() > 9) {
 			GraphicsObj.drawString("Time Left: " + (int)Handler.GetMain().GetMinutesLeft() + ":" + (int)Handler.GetMain().GetSecondsleft(), 650, 50);	
 		}
@@ -120,7 +120,6 @@ public class  StateGame extends StatesAbstract {
 		//Draw Stunned
 		if (CaraLoft.GetCurrentlyStunned() == true) {
 			GraphicsObj.setFont(Font1);
-			GraphicsObj.setColor(Color.WHITE);
 			GraphicsObj.drawString("STUNNED!", 700, 430);
 		} 
 		
@@ -136,8 +135,6 @@ public class  StateGame extends StatesAbstract {
 
 	@Override
 	public void Tick() {
-		System.out.println(Handler.GetMain().getEliminated());
-
 		//Cheat to boss room
 		if(Handler.GetKeyboardInput().PageDown) {
 			Handler.clearEntities();
@@ -145,7 +142,10 @@ public class  StateGame extends StatesAbstract {
 			CurrentRoom = 2;
 			CaraLoft.SetPosX(Office.GetInitialX() * 64);
 			CaraLoft.SetPosY(Office.GetInitialY() * 64);
-			Handler.addEntity(Boss = new Boss(Handler, Identifier.Boss, 600, 200, CaraLoft));
+			Handler.addEntity(Boss = new Boss(Handler, Identifier.Boss, 500, 200, CaraLoft));
+			Handler.addEntity(apple1 = new Apple(Handler,800, 700));
+			Handler.addEntity(apple2 = new Apple(Handler,1000, 750));
+			Handler.addEntity(apple3 = new Apple(Handler,850, 800));
 		}
 		
 		//Checks which room to Tick
@@ -162,6 +162,7 @@ public class  StateGame extends StatesAbstract {
 			//enemy3.Tick();
 		}
 		
+		//Pickup Items
 		for(int i = 0; i < Handler.getEntities().size(); i++){
 			Handler.getEntities().get(i).Tick();
 			Entity Entity = Handler.getEntities().get(i);
@@ -197,15 +198,15 @@ public class  StateGame extends StatesAbstract {
 						CaraLoft.SetPosY(Hall.GetInitialY() * 64);
 						Handler.SetRoom(Hall);
 						Handler.addEntity(enemy1 = new Enemy(Handler, Identifier.Enemy, 400, 900, CaraLoft));
-						Handler.addEntity(enemy2 = new Enemy(Handler, Identifier.Enemy, 1400, 1400, CaraLoft));
-						Handler.addEntity(enemy3 = new Enemy(Handler, Identifier.Enemy, 400, 1200, CaraLoft));
-						Handler.addEntity(enemy4 = new Enemy(Handler, Identifier.Enemy, 200, 1200, CaraLoft));
+						Handler.addEntity(enemy2 = new Enemy(Handler, Identifier.Enemy, 400, 1200, CaraLoft));
+						Handler.addEntity(enemy3 = new Enemy(Handler, Identifier.Enemy, 1200, 600, CaraLoft));
+						Handler.addEntity(enemy4 = new Enemy(Handler, Identifier.Enemy, 900, 1000, CaraLoft));
 						Handler.addEntity(enemy5 = new Enemy(Handler, Identifier.Enemy, 1800, 1900, CaraLoft));
 						Handler.addEntity(enemy6 = new Enemy(Handler, Identifier.Enemy, 850, 1600, CaraLoft));
-						Handler.addEntity(apple1 = new Apple(Handler,400, 1100));
-						Handler.addEntity(apple2 = new Apple(Handler,1700, 200));
-						Handler.addEntity(apple3 = new Apple(Handler,1800, 1800));
-						Handler.addEntity(key1 = new Key(Handler, 250, 1100));
+						Handler.addEntity(apple1 = new Apple(Handler,200, 1100));
+						Handler.addEntity(apple2 = new Apple(Handler,1800, 1800));
+						Handler.addEntity(apple3 = new Apple(Handler,1700, 200));
+						Handler.addEntity(key1 = new Key(Handler, Item.DefaultWidth, Item.DefaultHeight, Identifier.Key, 250, 1100));
 					}
 				}
 			}
@@ -222,6 +223,9 @@ public class  StateGame extends StatesAbstract {
 						CaraLoft.SetPosY(Office.GetInitialY() * 64);
 						Handler.SetRoom(Office);
 						Handler.addEntity(Boss = new Boss(Handler, Identifier.Boss, 500, 200, CaraLoft));
+						Handler.addEntity(apple1 = new Apple(Handler,400, 400));
+						Handler.addEntity(apple2 = new Apple(Handler,600, 500));
+						Handler.addEntity(apple3 = new Apple(Handler,800, 400));
 					}
 				}
 			}
@@ -230,7 +234,7 @@ public class  StateGame extends StatesAbstract {
 		if (Handler.GetKeyboardInput().P == true || Handler.GetKeyboardInput().Esc == true) {
 			//if (PauseScreen == false) {
 				Handler.GetMain().SetState(Handler.GetMain().StatePause);
-				Sounds.playSound("resources/sounds/back_style_2_001.wav");
+				Sounds.playSound(new File("resources/sounds/back_style_2_001.wav"));
 				//PauseScreen = true;
 			//}
 		}

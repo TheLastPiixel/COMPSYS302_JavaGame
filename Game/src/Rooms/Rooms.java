@@ -1,12 +1,9 @@
 package Rooms;
 
 import java.awt.Graphics;
-import java.awt.Menu;
 
-import Entity.Entity;
 import Graphics.Camera;
 import Main.Helpers;
-import Main.Main;
 import Tiles.Tiles;
 import Main.Handler;
 
@@ -57,7 +54,6 @@ public class Rooms {
 		if (TileTexture == null) {
 			return Tiles.WoodenTile;
 		}
-		
 		return TileTexture;
 	}
 	

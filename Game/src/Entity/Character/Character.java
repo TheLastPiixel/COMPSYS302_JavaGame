@@ -18,7 +18,6 @@ public abstract class Character extends Entity{
 	protected int attackRange = 40;
 	private int MaxHealth = DefaultHealth;
 
-
 	public Character(Handler Handler, int Width, int Height, Identifier id, float PosX, float PosY) {
 		super(Handler, Width, Height, id, PosX, PosY);
 		Mode = 1;
@@ -56,6 +55,7 @@ public abstract class Character extends Entity{
 			}
 		}
 	}
+	
 	public void moveY(){
 		if(YSpeed < 0){ //up
 			int ty = (int) (PosY + YSpeed + colBoundary.y) / Tiles.TileHeight; // sets to top of collision rectangle
@@ -78,14 +78,22 @@ public abstract class Character extends Entity{
 			}
 		}
 	}
+	
+	protected boolean collisionWithTile(int x, int y){
+		return Handler.GetRoom().GetTileTexture(x,y).IsSolid(); // get true or false whether it is sold
+	}
 
 	//Health Getter & Setter
 	public int GetHealth() {
 		return Health;
 	}
 	public void SetHealth(int Health) {
-		if (this.MaxHealth > Health)
-		this.Health = Health;
+		if (this.MaxHealth > Health) {
+			this.Health = Health;
+		}
+		else {
+			this.Health = MaxHealth;
+		}
 	}
 
 	//SpeedFactor Getter & Setter
@@ -109,7 +117,7 @@ public abstract class Character extends Entity{
 		return Mode;
 	}
 	public void SetMode(int Mode) {
-		this.Mode =Mode;
+		this.Mode = Mode;
 	}
 
 	//XSpeed Getter & Setter
@@ -127,9 +135,4 @@ public abstract class Character extends Entity{
 	public void SetYSpeed(float YSpeed) {
 		this.YSpeed = YSpeed;
 	}
-
-	protected boolean collisionWithTile(int x, int y){
-		return Handler.GetRoom().GetTileTexture(x,y).IsSolid(); // get true or false whether it is sold
-	}
-
 }

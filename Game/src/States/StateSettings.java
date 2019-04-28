@@ -7,6 +7,8 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.io.File;
+
 import Graphics.Sounds;
 
 import Graphics.TextureLoader;
@@ -77,7 +79,7 @@ public class StateSettings extends StatesAbstract {
 		if (Handler.GetMouseInput().Return == true || Handler.GetKeyboardInput().Esc == true) {
 			Handler.GetMain().SetState(Handler.GetMain().StateMenu);
 			Handler.GetMouseInput().Refresh();
-			Sounds.playSound("resources/sounds/back_style_2_001.wav");
+			Sounds.playSound(new File("resources/sounds/back_style_2_001.wav"));
 		}
 	}
 

@@ -2,6 +2,7 @@ package Entity.Character;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 
 import Graphics.Sprites;
 import Main.Handler;
@@ -11,7 +12,7 @@ import Graphics.Sounds;
 public class Player extends Character {
 	// Animations
 	private Animation rightCaraAnim, leftCaraAnim, downCaraAnim, upCaraAnim, lastAnim, attackCaraAnim, hurtCaraAnim;
-	private int i = 0;
+	private File Attack2;
 	private int CurrentDirection;
 	private int CurrentHealth;
 	private boolean AttackButton;
@@ -19,13 +20,10 @@ public class Player extends Character {
 	private boolean CurrentlyStunned = false;
 	private long AttackCooldown;
 	private long LastAttack;
-	private long Clock;
 	private Boolean hasKey = false;
 	private Rectangle AttackArea = new Rectangle();
-	private int Score;
 	private int Eliminated = 0;
 	private int damageTimer = 0;
-	private int MaxHealth = 100;
 
 	public Player(Handler Handler,Identifier id, float PosX, float PosY) {
 		super(Handler, DefaultWidth, DefaultHeight, id, PosX, PosY);
@@ -46,6 +44,7 @@ public class Player extends Character {
 		attackCaraAnim = new Animation(100, Sprites.CaraLoftAttack);
 		hurtCaraAnim = new Animation(100, Sprites.CaraLoftHurt);
 		lastAnim = downCaraAnim;
+		Attack2 = new File("resources/sounds/Jab.wav");
 	}
 
 	private void GetKeyboardInput() {
@@ -82,7 +81,7 @@ public class Player extends Character {
 		
 		//Checks and sets player to stunned
 		if (Stunned == true) {
-			AttackCooldown = 10000;
+			AttackCooldown = 5000;
 			LastAttack = System.currentTimeMillis();
 			Stunned = false;
 			CurrentlyStunned = true;
@@ -136,7 +135,7 @@ public class Player extends Character {
 				else if(Handler.getEntities().get(i).getCollisionBounds(0, 0).intersects(AttackArea) & AttackButton == true) {
 					Handler.getEntities().get(i).Damage(35);
 					LastAttack = System.currentTimeMillis();
-					Sounds.playSound("resources/sounds/attack2.wav");
+					Sounds.playSound(Attack2);
 					return;
 				}
 			}
@@ -148,7 +147,6 @@ public class Player extends Character {
 		//Hard coded spritesheet of 4 column, doesnt really work
 		GraphicsObj.drawImage(getCurrentAnimationFrame(), (int)(PosX - Handler.GetCamera().GetOffsetX()), (int)(PosY - Handler.GetCamera().GetOffsetY()), Width, Height, null);
 
-		System.out.println(CurrentHealth);
 		if (Health < CurrentHealth) {
 			 CurrentHealth = Health;
 			damageTimer = 60;
@@ -159,16 +157,6 @@ public class Player extends Character {
 			//GraphicsObj.setColor(Color.RED);
 			//GraphicsObj.fillRect(0, 0, Handler.GetWidth(), Handler.GetHeight());
 		}
-	}
-
-	@Override
-	public Identifier getId() {
-		return id;
-	}
-
-	@Override
-	public Rectangle getBounds() {
-		return new Rectangle((int)PosX, (int)PosY, Width, Height);
 	}
 
 	private BufferedImage getCurrentAnimationFrame(){ // make the correct animation come up depending on the direction
@@ -226,6 +214,16 @@ public class Player extends Character {
 	
 	public boolean GetCurrentlyStunned() {
 		return CurrentlyStunned;
+	}
+	
+	@Override
+	public Identifier getId() {
+		return id;
+	}
+
+	@Override
+	public Rectangle getBounds() {
+		return new Rectangle((int)PosX, (int)PosY, Width, Height);
 	}
 
 }

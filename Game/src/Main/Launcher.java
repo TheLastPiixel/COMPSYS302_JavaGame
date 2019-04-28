@@ -6,6 +6,5 @@ public class Launcher {
 		
 		Main Game = new Main("The Adventures of Cara Loft", 1440, 900);
 		Game.Start();
-		
 	}
 }

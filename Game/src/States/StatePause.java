@@ -8,9 +8,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
-
-import Graphics.Sprites;
-import Graphics.TextureLoader;
+import java.io.File;
 
 public class StatePause extends StatesAbstract {
 
@@ -22,12 +20,12 @@ public class StatePause extends StatesAbstract {
 	public Rectangle ResumeButtonInside = new Rectangle(525, 305, 390, 140);
 	public Rectangle QuitButton = new Rectangle(520, 530, 400, 150);
 	public Rectangle QuitButtonInside = new Rectangle(525, 535, 390, 140);
+	private File Confirm = new File("resources/sounds/confirm_style_2_001.wav");
 	
 	@Override
 	public void Render(Graphics GraphicsObj) {
 		Graphics2D Graphics2D = (Graphics2D) GraphicsObj;
 		
-//		System.out.println("We are rendering");
 		//Font types
 		Font Font1 = new Font("monospace", Font.BOLD, 70);
 		Font Font2 = new Font("monospace", Font.BOLD, 50);
@@ -66,15 +64,14 @@ public class StatePause extends StatesAbstract {
 		if (Handler.GetMouseInput().Resume == true) {
 			Handler.GetMain().SetState(Handler.GetMain().StateGame);
 			Handler.GetMouseInput().Refresh();
-			Sounds.playSound("resources/sounds/confirm_style_2_001.wav");
+			Sounds.playSound(Confirm);
 		}
 		
 		else if (Handler.GetMouseInput().Quit == true) {
 			System.exit(1);
 			Handler.GetMouseInput().Refresh();
-			Sounds.playSound("resources/sounds/back_style_2_001.wav");
+			Sounds.playSound(Confirm);
 		}
-//		System.out.println("We are ticking");
 	
 	}
 

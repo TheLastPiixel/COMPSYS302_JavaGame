@@ -19,5 +19,4 @@ public class SpriteSheet {
 		return IndividualSprite;
 		
 	}
-	
 }

@@ -5,7 +5,6 @@ import Main.Main;
 import Main.Handler;
 import Tiles.Tiles;
 
-
 public class Camera {
 
 	private Main Game;
@@ -44,7 +43,7 @@ public class Camera {
 		OffsetY += ShiftY;
 	}
 	
-	
+	//GETTERS & SETTERS
 	public float GetOffsetX() {
 		return OffsetX;
 	}

@@ -5,7 +5,6 @@ import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
-
 public class Display {
 
 	private JFrame Frame;
@@ -46,12 +45,13 @@ public class Display {
 		Frame.pack(); //Assures the canvas size = frame size
 	}
 	
-	//Getter for Frame
+	//GETTERS & SETTERS
+	//Frame
 	public JFrame GetFrame() {
 		return Frame;
 	}
 	
-	//Getter for Canvas
+	//Canvas
 	public Canvas GetCanvas() {
 		return Canvas;
 	}

@@ -1,17 +1,10 @@
 package Input;
 
-import Main.Handler;
-import Main.Main;
-import States.StateGame;
-import States.StatesAbstract;
-
-import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class MouseInput implements MouseListener{
 	
-	private StatesAbstract StateGame;
 	//Main Menu Buttons
 	public boolean Play = false;
 	public boolean Settings = false;
@@ -43,17 +36,16 @@ public class MouseInput implements MouseListener{
 
 	@Override
 	public void mouseClicked(MouseEvent Event) {
-		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent Event) {
-		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent Event) {
-		// TODO Auto-generated method stub
 		
 	}
 

@@ -2,12 +2,9 @@ package Entity;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import Entity.Character.Identifier;
 import Main.Handler;
-import States.StateGame;
-
 
 public abstract class Entity {
 

@@ -1,12 +1,11 @@
 package Entity.Character;
 import Main.Handler;
-import Rooms.Rooms;
 import Graphics.Sounds;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Random;
-
+import java.io.File;
 import Graphics.Sprites;
 import Graphics.Animation;
 
@@ -14,17 +13,14 @@ public class Enemy extends Character {
     // Animations
     private Animation enemyAnimRight, enemyAnimLeft, enemyAnimDown, enemyAnimUp, enemyLastAnim;
     private int animTime = 0;
-    private Random random = new Random();
     private Player player;
     private int aggroDistance = 200;
-    private Rooms room;
     private int CurrentDirection;
     
     private Rectangle AttackArea = new Rectangle();
-	private int AttackRange;
 	private long AttackCooldown;
 	private long LastAttack;
-	private long Clock;
+	private File Damage1;
 
     public Enemy(Handler Handler,Identifier id, float PosX, float PosY, Player player) {
         super(Handler, DefaultWidth, DefaultHeight, id, PosX, PosY);
@@ -35,7 +31,7 @@ public class Enemy extends Character {
         colBoundary.width = 20;
         colBoundary.height = 24;
         
-        AttackCooldown = 1200;
+        AttackCooldown = 800;
 
         //Animations init
         enemyAnimRight = new Animation(100, Sprites.enemy_right);
@@ -43,6 +39,7 @@ public class Enemy extends Character {
         enemyAnimDown = new Animation(100, Sprites.enemy_down);
         enemyAnimUp = new Animation(100, Sprites.enemy_up);
         enemyLastAnim = enemyAnimDown;
+        Damage1 = new File("resources/sounds/Whack.wav");
 
     }
 
@@ -96,13 +93,12 @@ public class Enemy extends Character {
 				else if(Handler.getEntities().get(i).getCollisionBounds(0, 0).intersects(AttackArea)) {
 					Handler.getEntities().get(i).Damage(10);
 					LastAttack = System.currentTimeMillis();
-                    Sounds.playSound("resources/sounds/damaged1.wav");
+                    Sounds.playSound(Damage1);
 					return;
 				}
 			}
 		}
 	}
-
 
     @Override
     public void Render(Graphics GraphicsObj) {
@@ -164,6 +160,13 @@ public class Enemy extends Character {
             animTime = 0;
         }
     }
+    
+	@Override
+	public void Dead() {
+		Handler.GetMain().SetEliminated(Handler.GetMain().getEliminated() + 1);
+	}
+    
+	//GETTERS & SETTERS
     @Override
     public Identifier getId() {
         return id;
@@ -192,8 +195,4 @@ public class Enemy extends Character {
         }
     }
 
-	@Override
-	public void Dead() {
-		Handler.GetMain().SetEliminated(Handler.GetMain().getEliminated() + 1);
-	}
 }

@@ -34,17 +34,13 @@ public class Helpers {
 			while((CurrentLine = Reader.readLine()) != null) {
 				StringBuilder.append(CurrentLine + "\n");
 			}
-			
 			Reader.close();
-			
 		}
 		catch(IOException Error) {
 			Error.printStackTrace();
 		}
-		
 		return StringBuilder.toString();
 	}
-	
 	
 	public static int StringToInt(String String) {
 		try {

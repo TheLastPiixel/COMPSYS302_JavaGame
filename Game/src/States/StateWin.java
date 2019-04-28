@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
+import java.io.File;
 
 public class StateWin extends StatesAbstract {
 
@@ -22,11 +23,9 @@ public class StateWin extends StatesAbstract {
 	public void Render(Graphics GraphicsObj) {
 		Graphics2D Graphics2D = (Graphics2D) GraphicsObj;
 		
-//		System.out.println("We are rendering");
 		//Font types
 		Font Font1 = new Font("monospace", Font.BOLD, 70);
 		Font Font2 = new Font("monospace", Font.BOLD, 50);
-		Font Font3 = new Font("monospace", Font.BOLD, 20);
 		
 		//Draw background image and title
 		GraphicsObj.setColor(Color.black);
@@ -56,7 +55,7 @@ public class StateWin extends StatesAbstract {
 		if (Handler.GetMouseInput().ExitEnd == true || Handler.GetKeyboardInput().Esc) {
 			System.exit(1);
 			Handler.GetMouseInput().Refresh();
-			Sounds.playSound("resources/sounds/back_style_2_001.wav");
+			Sounds.playSound(new File("resources/sounds/back_style_2_001.wav"));
 		}
 		
 	

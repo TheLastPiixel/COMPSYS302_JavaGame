@@ -47,12 +47,13 @@ public class Tiles {
 		
 	}
 	
+	//GETTERS & SETTERS
 	//Checks if the Tile is a solid structure
 	public boolean IsSolid() {
 		return false;
 	}
 	
-	//Tile ID Getter
+	//Tile ID
 	public int GetID() {
 		return ID;
 	}

@@ -7,7 +7,7 @@ public class Sprites {
 	private static int Width = 64;
 	private static int Height = 64;
 	public static BufferedImage[] CaraLoftFront, CaraLoftLeft, CaraLoftRight, CaraLoftBack, CaraLoftAttack, CaraLoftHurt;
-	public static BufferedImage[] enemy_left, enemy_right, enemy_down, enemy_up;
+	public static BufferedImage[] enemy_left, enemy_right, enemy_down, enemy_up, SpruceWain;
 	public static BufferedImage Grass;
 	public static BufferedImage Sandstone;
 	public static BufferedImage WoodenTile;
@@ -18,7 +18,6 @@ public class Sprites {
 	public static BufferedImage Black;
 	public static BufferedImage Apple;
 	public static BufferedImage Key;
-	
 	
 	public static void LoadSprites() {
 		SpriteSheet Sheet = new SpriteSheet(TextureLoader.Image("/textures/CaraLoftFront.png"));
@@ -64,7 +63,7 @@ public class Sprites {
 		enemy_left  = new BufferedImage[8];
 		enemy_down = new BufferedImage[8];
 		enemy_up = new BufferedImage[8];
-
+		SpruceWain = new BufferedImage[4];
 
 		for(int x = 0; x < enemy_up.length; x++){
 			enemy_up[x] = sheet2.CropSheet(Width, Height, Width * x, 0);
@@ -88,6 +87,11 @@ public class Sprites {
 		SpriteSheet sheet4 = new SpriteSheet((TextureLoader.Image("/textures/Cara_Loft_Hurt.png")));
 		for(int x = 0; x < CaraLoftHurt.length; x++){
 			CaraLoftHurt[x] = sheet4.CropSheet(Width, Height, Width * x, 0);
+		}
+
+		SpriteSheet sheet5 = new SpriteSheet((TextureLoader.Image("/textures/SpruceWainFront.png")));
+		for(int x = 0; x < SpruceWain.length; x++){
+			SpruceWain[x] = sheet5.CropSheet(Width, Height, Width * x, 0);
 		}
 	}
 }

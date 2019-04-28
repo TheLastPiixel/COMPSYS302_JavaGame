@@ -12,13 +12,11 @@ public class TextureLoader {
 			//Returns buffered image from path
 			return ImageIO.read(TextureLoader.class.getResource(FilePath));
 		}
-		
 		catch (IOException e) {
 			e.printStackTrace();
 			System.exit(1);
 		}
 		return null;
-		
 	}
 	
 }
