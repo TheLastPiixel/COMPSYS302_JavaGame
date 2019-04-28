@@ -89,6 +89,10 @@ public class Player extends Character {
 		
 		Attack();
 	}
+	private void DamageIndicator(Graphics g){
+		g.setColor(Color.RED);
+		g.fillRect(0, 0, Handler.GetWidth(), Handler.GetHeight());
+	}
 	
 	private void Attack() {
 		if ((System.currentTimeMillis() - LastAttack) > AttackCooldown) {
@@ -149,10 +153,11 @@ public class Player extends Character {
 		GraphicsObj.drawRect((int)(AttackArea.x - Handler.GetCamera().GetOffsetX()), (int)(AttackArea.y - Handler.GetCamera().GetOffsetY()), (int)AttackArea.width, (int)AttackArea.height);
 		GraphicsObj.drawImage(getCurrentAnimationFrame(), (int)(PosX - Handler.GetCamera().GetOffsetX()), (int)(PosY - Handler.GetCamera().GetOffsetY()), Width, Height, null);
 	
-		if (Health <= CurrentHealth) {
+		if (Health > CurrentHealth) {
 			GraphicsObj.setColor(Color.RED);
 //			GraphicsObj.fillRect(0, 0, 1440, 900);
 			CurrentHealth = Health;
+			DamageIndicator(GraphicsObj);
 		}
 	}
 
